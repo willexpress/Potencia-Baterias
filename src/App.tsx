@@ -45,6 +45,43 @@ export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedCarModel, setSelectedCarModel] = useState('');
+
+  const getWhatsappLink = () => {
+    const phoneNumber = '5561991004308';
+    let message = 'Olá, gostaria de conferir os preços';
+    
+    const cityMap: Record<string, string> = {
+      'taguatinga-norte': 'Taguatinga Norte',
+      'ceilandia': 'Ceilândia',
+      'vicente-pires': 'Vicente Pires',
+      'aguas-claras': 'Águas Claras',
+      'taguatinga-centro': 'Taguatinga Centro'
+    };
+
+    const modelMap: Record<string, string> = {
+      'leve': 'Carro de Passeio',
+      'suv': 'SUV / Caminhonete',
+      'moto': 'Moto',
+      'pesado': 'Caminhão / Ônibus'
+    };
+
+    if (selectedCarModel) {
+      message += ` para ${modelMap[selectedCarModel] || selectedCarModel}`;
+    }
+    
+    if (selectedCity) {
+      message += ` em ${cityMap[selectedCity] || selectedCity}`;
+    }
+
+    if (!selectedCity && !selectedCarModel) {
+        return 'https://wa.link/zgopqx';
+    }
+
+    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  };
+
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
   const scale = useTransform(scrollY, [0, 500], [1, 1.1]);
@@ -110,11 +147,11 @@ export default function App() {
       </a>
 
       {/* Navigation */}
-      <nav className="fixed w-full z-[100] transition-all duration-500 ease-in-out translate-y-0 bg-white/95 dark:bg-neutral-950/95 py-4 border-b border-slate-200 dark:border-white/10 shadow-2xl">
+      <nav className="fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out translate-y-0 bg-white/95 dark:bg-neutral-950/95 py-4 border-b border-slate-200 dark:border-white/10 shadow-2xl">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 group cursor-pointer">
             <img
-              alt="Volts Baterias Logo"
+              alt="Potencia das Baterias Logo"
               className="h-12 md:h-16 w-auto object-contain transition-transform group-hover:scale-105"
               src="https://i.imgur.com/nrxPkmP.png"
             />
@@ -191,7 +228,7 @@ export default function App() {
         <div className="p-6 flex flex-col h-full">
           <div className="flex justify-between items-center mb-12">
             <img
-              alt="Volts Baterias Logo"
+              alt="Potencia das Baterias Logo"
               className="h-12 w-auto object-contain"
               src="https://i.imgur.com/nrxPkmP.png"
             />
@@ -225,7 +262,7 @@ export default function App() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pb-20 md:pb-48 md:pt-48">
+      <section className="relative min-h-screen flex items-center md:items-start pb-20 md:pb-48 md:pt-28">
         <div className="w-full md:max-w-7xl md:mx-auto md:px-6 relative z-40">
           <div className="relative md:rounded-[40px] overflow-hidden bg-slate-900 shadow-2xl min-h-screen md:min-h-[600px] flex items-center">
             {/* Background Image */}
@@ -239,7 +276,7 @@ export default function App() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
 
             {/* Content Overlay */}
-            <div className="relative z-30 p-8 pt-32 pb-48 md:px-16 md:pb-16 md:pt-64 max-w-3xl">
+            <div className="relative z-50 p-8 pt-32 pb-48 md:px-16 md:pb-16 md:pt-64 max-w-3xl">
               <div className="flex items-center gap-2 text-green-500 font-bold text-xs tracking-[0.4em] mb-6 uppercase animate-in fade-in slide-in-from-left duration-700">
                 <span className="w-8 h-[2px] bg-green-500"></span>Loja de Baterias Especializada
               </div>
@@ -271,18 +308,25 @@ export default function App() {
 
           {/* Floating Search Widget */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[90%] max-w-5xl bg-slate-50 dark:bg-neutral-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 p-8 md:p-10 animate-in fade-in zoom-in duration-700 delay-500 z-40">
-            <h3 className="text-center text-xl md:text-2xl font-black italic tracking-tight text-slate-900 dark:text-white mb-8">
+            <h2 className="text-center text-xl md:text-2xl font-black italic tracking-tight text-slate-900 dark:text-white mb-8">
               Peça de onde estiver e pague apenas na entrega!
-            </h3>
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <MapPin className="h-5 w-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
                 </div>
-                <select defaultValue="" className="block w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none appearance-none font-medium cursor-pointer transition-all hover:border-green-500/50">
+                <select 
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  className="block w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none appearance-none font-medium cursor-pointer transition-all hover:border-green-500/50"
+                >
                   <option value="" disabled>Selecione sua Cidade</option>
-                  <option value="taguatinga">Taguatinga</option>
                   <option value="taguatinga-norte">Taguatinga Norte</option>
+                  <option value="ceilandia">Ceilândia</option>
+                  <option value="vicente-pires">Vicente Pires</option>
+                  <option value="aguas-claras">Águas Claras</option>
+                  <option value="taguatinga-centro">Taguatinga Centro</option>
                 </select>
                 <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                   <ChevronDown className="h-4 w-4 text-slate-400" />
@@ -293,7 +337,11 @@ export default function App() {
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <Car className="h-5 w-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
                 </div>
-                <select defaultValue="" className="block w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none appearance-none font-medium cursor-pointer transition-all hover:border-green-500/50">
+                <select 
+                  value={selectedCarModel}
+                  onChange={(e) => setSelectedCarModel(e.target.value)}
+                  className="block w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none appearance-none font-medium cursor-pointer transition-all hover:border-green-500/50"
+                >
                   <option value="" disabled>Modelo do Carro</option>
                   <option value="leve">Carro de Passeio</option>
                   <option value="suv">SUV / Caminhonete</option>
@@ -306,7 +354,7 @@ export default function App() {
               </div>
 
               <a 
-                href="https://wa.link/zgopqx"
+                href={getWhatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 bg-green-600 text-white font-black uppercase tracking-widest py-4 rounded-xl hover:bg-green-700 transition-all shadow-lg shadow-green-600/20 hover-electric-green"
@@ -334,7 +382,7 @@ export default function App() {
             <div className="group relative bg-slate-50 dark:bg-neutral-800 rounded-[40px] overflow-hidden border border-slate-200 dark:border-white/5 hover:border-green-600/30 transition-all duration-500 shadow-2xl">
               <div className="aspect-[16/9] overflow-hidden relative">
                 <img
-                  alt="Loja Volts Baterias Taguatinga"
+                  alt="Loja Potencia das Baterias Taguatinga"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   src="https://lh3.googleusercontent.com/p/AF1QipMixq16-rvnV2l8OSzjPcjFWQh-eBuZRXVao6v9=s680-w680-h510-rw"
                 />
@@ -393,7 +441,7 @@ export default function App() {
             <div className="group relative bg-slate-50 dark:bg-neutral-800 rounded-[40px] overflow-hidden border border-slate-200 dark:border-white/5 hover:border-green-600/30 transition-all duration-500 shadow-2xl">
               <div className="aspect-[16/9] overflow-hidden relative">
                 <img
-                  alt="Loja Volts Baterias Taguatinga Norte"
+                  alt="Loja Potencia das Baterias Taguatinga Norte"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   src="https://lh3.googleusercontent.com/gps-cs-s/AHVAwepRhqVrnanScwV8RbV9q1_dWgqgIDHroG1cB9WVHfA_etC6NcysT-HjpRvoBIo3x1uP7FhB5GjUspKb9rzTI3jczGP720QPOOgE2SuI05UwQOuc1MRLzlP-EuXqu8d6ARtJWbXU=s680-w680-h510-rw"
                 />
@@ -423,7 +471,7 @@ export default function App() {
                   <div className="flex items-center gap-4">
                     <Phone className="w-5 h-5 text-green-600 shrink-0" />
                     <p className="text-slate-900 dark:text-white text-lg font-black tracking-tight">
-                      (61) 99852-6540
+                      (61) 3047-2306
                     </p>
                   </div>
                 </div>
@@ -680,9 +728,9 @@ export default function App() {
                   onClick={() => toggleFaq(index)}
                   className="w-full p-6 text-left flex justify-between items-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
                 >
-                  <span className="font-bold text-lg italic uppercase tracking-tight text-slate-900 dark:text-white">
+                  <h3 className="font-bold text-lg italic uppercase tracking-tight text-slate-900 dark:text-white">
                     {item.q}
-                  </span>
+                  </h3>
                   <ChevronDown
                     className={`w-6 h-6 transition-transform duration-300 text-slate-500 dark:text-white ${
                       openFaqIndex === index ? 'rotate-180' : ''
@@ -719,7 +767,7 @@ export default function App() {
             <div className="col-span-1">
               <div className="flex items-center gap-2 mb-8">
                 <img
-                  alt="Volts Baterias Logo"
+                  alt="Potencia das Baterias Logo"
                   className="h-12 w-auto object-contain"
                   src="https://i.imgur.com/aLVAX0x.png"
                 />
@@ -782,7 +830,7 @@ export default function App() {
             </div>
           </div>
           <div className="pt-12 border-t border-neutral-800 text-center text-[10px] text-neutral-500 font-black tracking-[0.3em] uppercase">
-            <p>© 2024 VOLTS BATERIAS - OTIMIZADO PARA GOOGLE</p>
+            <p>© 2024 POTENCIA DAS BATERIAS - OTIMIZADO PARA GOOGLE</p>
           </div>
         </div>
       </footer>
