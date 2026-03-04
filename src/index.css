@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #000d1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #15803d;
+}
+
+/* Efeitos de Energia da Bateria */
+@keyframes electric-pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+@keyframes electric-glow-green {
+  0%, 100% { box-shadow: 0 0 5px #16a34a, 0 0 10px #16a34a; filter: brightness(1); }
+  50% { box-shadow: 0 0 20px #16a34a, 0 0 30px #22c55e; filter: brightness(1.1); }
+}
+
+.hover-electric-green:hover {
+  animation: electric-glow-green 1.5s infinite;
+  transform: translateY(-2px);
+}
