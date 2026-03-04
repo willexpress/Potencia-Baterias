@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import {
   MessageSquare,
   Phone,
@@ -25,7 +25,98 @@ import {
   Award,
   Shield,
   ThumbsUp,
+  Check,
 } from 'lucide-react';
+
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface CustomSelectProps {
+  options: Option[];
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  icon: React.ElementType;
+}
+
+const CustomSelect = ({ options, value, onChange, placeholder, icon: Icon }: CustomSelectProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const selectedLabel = options.find((opt) => opt.value === value)?.label;
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`w-full pl-12 pr-4 py-4 text-left bg-white dark:bg-neutral-900 border ${
+          isOpen ? 'border-green-500 ring-2 ring-green-500/20' : 'border-slate-200 dark:border-white/10'
+        } rounded-xl text-slate-900 dark:text-white font-medium transition-all hover:border-green-500/50 flex items-center justify-between group outline-none`}
+      >
+        <div className="absolute left-4 text-slate-400 group-hover:text-green-600 transition-colors">
+          <Icon className="w-5 h-5" />
+        </div>
+        <span className={`block truncate ${!value ? 'text-slate-500' : ''}`}>
+          {selectedLabel || placeholder}
+        </span>
+        <ChevronDown
+          className={`w-4 h-4 text-slate-400 transition-transform duration-300 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+        />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#0a120b] border border-slate-100 dark:border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 max-h-60 overflow-y-auto custom-scrollbar"
+          >
+            {options.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => {
+                  onChange(option.value);
+                  setIsOpen(false);
+                }}
+                className={`w-full px-4 py-3 text-left flex items-center justify-between hover:bg-slate-50 dark:hover:bg-white/5 transition-colors ${
+                  value === option.value
+                    ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+                    : 'text-slate-700 dark:text-gray-300'
+                }`}
+              >
+                <span className="font-medium truncate">{option.label}</span>
+                {value === option.value && (
+                  <Check className="w-4 h-4 text-green-500 shrink-0" />
+                )}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const FadeIn = ({ children, delay = 0, className = "" }: { children: React.ReactNode, delay?: number, className?: string }) => {
   return (
@@ -47,6 +138,22 @@ export default function App() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedCarModel, setSelectedCarModel] = useState('');
+
+  const cityOptions = [
+    { value: 'taguatinga-norte', label: 'Taguatinga Norte' },
+    { value: 'ceilandia', label: 'Ceilândia' },
+    { value: 'vicente-pires', label: 'Vicente Pires' },
+    { value: 'aguas-claras', label: 'Águas Claras' },
+    { value: 'taguatinga-centro', label: 'Taguatinga Centro' },
+    { value: 'samambaia', label: 'Samambaia' },
+  ];
+
+  const modelOptions = [
+    { value: 'leve', label: 'Carro de Passeio' },
+    { value: 'suv', label: 'SUV / Caminhonete' },
+    { value: 'moto', label: 'Moto' },
+    { value: 'pesado', label: 'Caminhão / Ônibus' },
+  ];
 
   const getWhatsappLink = () => {
     const phoneNumber = '5561991004308';
@@ -321,47 +428,21 @@ export default function App() {
               Peça de onde estiver e pague apenas na entrega!
             </h2>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <MapPin className="h-5 w-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                </div>
-                <select 
-                  value={selectedCity}
-                  onChange={(e) => setSelectedCity(e.target.value)}
-                  className="block w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none appearance-none font-medium cursor-pointer transition-all hover:border-green-500/50"
-                >
-                  <option value="" disabled>Selecione sua Cidade</option>
-                  <option value="taguatinga-norte">Taguatinga Norte</option>
-                  <option value="ceilandia">Ceilândia</option>
-                  <option value="vicente-pires">Vicente Pires</option>
-                  <option value="aguas-claras">Águas Claras</option>
-                  <option value="taguatinga-centro">Taguatinga Centro</option>
-                  <option value="samambaia">Samambaia</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                  <ChevronDown className="h-4 w-4 text-slate-400" />
-                </div>
-              </div>
+              <CustomSelect
+                options={cityOptions}
+                value={selectedCity}
+                onChange={setSelectedCity}
+                placeholder="Selecione sua Cidade"
+                icon={MapPin}
+              />
 
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Car className="h-5 w-5 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                </div>
-                <select 
-                  value={selectedCarModel}
-                  onChange={(e) => setSelectedCarModel(e.target.value)}
-                  className="block w-full pl-12 pr-4 py-4 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none appearance-none font-medium cursor-pointer transition-all hover:border-green-500/50"
-                >
-                  <option value="" disabled>Modelo do Carro</option>
-                  <option value="leve">Carro de Passeio</option>
-                  <option value="suv">SUV / Caminhonete</option>
-                  <option value="moto">Moto</option>
-                  <option value="pesado">Caminhão / Ônibus</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                  <ChevronDown className="h-4 w-4 text-slate-400" />
-                </div>
-              </div>
+              <CustomSelect
+                options={modelOptions}
+                value={selectedCarModel}
+                onChange={setSelectedCarModel}
+                placeholder="Modelo do Carro"
+                icon={Car}
+              />
 
               <a 
                 href={getWhatsappLink()}
