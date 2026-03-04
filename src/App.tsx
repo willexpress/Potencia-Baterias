@@ -118,7 +118,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-neutral-900 text-slate-900 dark:text-white font-sans selection:bg-green-600 selection:text-white relative transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#050a06] dark:bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] dark:from-green-900/40 dark:via-[#050a06] dark:to-[#050a06] text-slate-900 dark:text-white font-sans selection:bg-green-600 selection:text-white relative transition-colors duration-300">
+      {/* Noise Overlay */}
+      <div 
+        className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay"
+        style={{ 
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` 
+        }}
+      ></div>
+
       {/* Floating Emergency Call Button */}
       <a
         href="tel:61991004308"
@@ -147,7 +155,7 @@ export default function App() {
       </a>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out translate-y-0 bg-white/95 dark:bg-neutral-950/95 py-4 border-b border-slate-200 dark:border-white/10 shadow-2xl">
+      <nav className="fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out translate-y-0 bg-white/95 dark:bg-[#050a06]/90 backdrop-blur-md py-4 border-b border-slate-200 dark:border-white/5 shadow-2xl">
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 group cursor-pointer">
             <img
@@ -221,7 +229,7 @@ export default function App() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-[200] bg-slate-50 dark:bg-neutral-900 transition-transform duration-500 transform ${
+        className={`fixed inset-0 z-[200] bg-slate-50 dark:bg-[#050a06] transition-transform duration-500 transform ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -307,7 +315,7 @@ export default function App() {
           </div>
 
           {/* Floating Search Widget */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[90%] max-w-5xl bg-slate-50 dark:bg-neutral-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 p-8 md:p-10 animate-in fade-in zoom-in duration-700 delay-500 z-40">
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[90%] max-w-5xl bg-slate-50 dark:bg-[#0a120b]/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 dark:border-green-900/30 p-8 md:p-10 animate-in fade-in zoom-in duration-700 delay-500 z-40">
             <h2 className="text-center text-xl md:text-2xl font-black italic tracking-tight text-slate-900 dark:text-white mb-8">
               Peça de onde estiver e pague apenas na entrega!
             </h2>
@@ -367,7 +375,7 @@ export default function App() {
       </section>
 
       {/* Units Section */}
-      <section id="unidades" className="relative z-30 pt-64 pb-32 bg-white dark:bg-neutral-900">
+      <section id="unidades" className="relative z-30 pt-64 pb-32 bg-white dark:bg-transparent">
         <FadeIn className="max-w-7xl mx-auto px-6">
           <div className="mb-20">
             <div className="flex items-center gap-2 text-green-500 font-bold text-xs tracking-[0.4em] mb-4 uppercase">
@@ -379,7 +387,7 @@ export default function App() {
           </div>
           <div className="grid md:grid-cols-2 gap-10">
             {/* Taguatinga */}
-            <div className="group relative bg-slate-50 dark:bg-neutral-800 rounded-[40px] overflow-hidden border border-slate-200 dark:border-white/5 hover:border-green-600/30 transition-all duration-500 shadow-2xl">
+            <div className="group relative bg-slate-50 dark:bg-[#0a120b] rounded-[40px] overflow-hidden border border-slate-200 dark:border-white/5 hover:border-green-600/30 transition-all duration-500 shadow-2xl">
               <div className="aspect-[16/9] overflow-hidden relative">
                 <img
                   alt="Loja Potencia das Baterias Taguatinga"
@@ -438,7 +446,7 @@ export default function App() {
             </div>
 
             {/* Taguatinga Norte */}
-            <div className="group relative bg-slate-50 dark:bg-neutral-800 rounded-[40px] overflow-hidden border border-slate-200 dark:border-white/5 hover:border-green-600/30 transition-all duration-500 shadow-2xl">
+            <div className="group relative bg-slate-50 dark:bg-[#0a120b] rounded-[40px] overflow-hidden border border-slate-200 dark:border-white/5 hover:border-green-600/30 transition-all duration-500 shadow-2xl">
               <div className="aspect-[16/9] overflow-hidden relative">
                 <img
                   alt="Loja Potencia das Baterias Taguatinga Norte"
@@ -500,7 +508,7 @@ export default function App() {
       </section>
 
       {/* Why Choose Heliar Section */}
-      <section id="produtos" className="relative z-30 py-32 bg-white dark:bg-neutral-950">
+      <section id="produtos" className="relative z-30 py-32 bg-white dark:bg-transparent">
         <FadeIn className="max-w-7xl mx-auto px-6">
           <div className="mb-16">
             <h2 className="text-3xl md:text-5xl font-black italic uppercase text-slate-900 dark:text-white mb-4">
@@ -577,7 +585,7 @@ export default function App() {
       {/* Testimonials Section */}
       <section
         id="depoimentos"
-        className="relative z-30 py-32 bg-white dark:bg-neutral-900 overflow-hidden"
+        className="relative z-30 py-32 bg-white dark:bg-transparent overflow-hidden"
       >
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(22,163,74,0.05)_0%,transparent_70%)] pointer-events-none"></div>
         <FadeIn className="max-w-7xl mx-auto px-6 relative z-10">
@@ -697,7 +705,7 @@ export default function App() {
       {/* FAQ Section */}
       <section
         id="faq"
-        className="relative z-30 py-32 bg-slate-50 dark:bg-neutral-950 border-y border-slate-200 dark:border-white/5"
+        className="relative z-30 py-32 bg-slate-50 dark:bg-transparent border-y border-slate-200 dark:border-white/5"
       >
         <FadeIn className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -753,7 +761,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-neutral-900 pt-32 pb-32 md:pb-12 border-t border-neutral-800 relative overflow-hidden transition-colors duration-300">
+      <footer className="bg-neutral-900 dark:bg-[#020402] pt-32 pb-32 md:pb-12 border-t border-neutral-800 relative overflow-hidden transition-colors duration-300">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 opacity-5 pointer-events-none">
           <img 
