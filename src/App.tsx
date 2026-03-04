@@ -57,7 +57,8 @@ export default function App() {
       'ceilandia': 'Ceilândia',
       'vicente-pires': 'Vicente Pires',
       'aguas-claras': 'Águas Claras',
-      'taguatinga-centro': 'Taguatinga Centro'
+      'taguatinga-centro': 'Taguatinga Centro',
+      'samambaia': 'Samambaia'
     };
 
     const modelMap: Record<string, string> = {
@@ -335,6 +336,7 @@ export default function App() {
                   <option value="vicente-pires">Vicente Pires</option>
                   <option value="aguas-claras">Águas Claras</option>
                   <option value="taguatinga-centro">Taguatinga Centro</option>
+                  <option value="samambaia">Samambaia</option>
                 </select>
                 <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                   <ChevronDown className="h-4 w-4 text-slate-400" />
