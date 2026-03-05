@@ -813,30 +813,55 @@ export default function App() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden bg-white dark:bg-neutral-800/50"
+                className={`group border rounded-2xl overflow-hidden transition-all duration-300 ${
+                  openFaqIndex === index
+                    ? 'bg-white dark:bg-[#0a120b] border-green-500 dark:border-green-500 shadow-[0_0_20px_rgba(34,197,94,0.15)]'
+                    : 'bg-white dark:bg-[#0a120b]/50 border-slate-200 dark:border-white/5 hover:border-green-500/30'
+                }`}
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full p-6 text-left flex justify-between items-center hover:bg-slate-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                  className="w-full p-6 text-left flex justify-between items-center cursor-pointer"
                 >
-                  <h3 className="font-bold text-lg italic uppercase tracking-tight text-slate-900 dark:text-white">
+                  <h3 className={`font-bold text-lg italic uppercase tracking-tight transition-colors duration-300 ${
+                    openFaqIndex === index 
+                      ? 'text-green-600 dark:text-green-400' 
+                      : 'text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400'
+                  }`}>
                     {item.q}
                   </h3>
-                  <ChevronDown
-                    className={`w-6 h-6 transition-transform duration-300 text-slate-500 dark:text-white ${
-                      openFaqIndex === index ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    openFaqIndex === index ? 'max-h-40' : 'max-h-0'
-                  }`}
-                >
-                  <div className="p-6 pt-0 text-slate-600 dark:text-gray-400 border-t border-slate-200 dark:border-white/5 mt-2 leading-relaxed">
-                    {item.a}
+                  <div className={`relative flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${
+                    openFaqIndex === index 
+                      ? 'bg-green-100 dark:bg-green-900/30 rotate-180' 
+                      : 'bg-slate-100 dark:bg-white/5 group-hover:bg-green-50 dark:group-hover:bg-green-900/20'
+                  }`}>
+                    <ChevronDown
+                      className={`w-5 h-5 transition-colors duration-300 ${
+                        openFaqIndex === index 
+                          ? 'text-green-600 dark:text-green-400' 
+                          : 'text-slate-500 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400'
+                      }`}
+                    />
                   </div>
-                </div>
+                </button>
+                <AnimatePresence>
+                  {openFaqIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="p-6 pt-0">
+                        <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/20 to-transparent mb-4"></div>
+                        <p className="text-slate-600 dark:text-gray-300 leading-relaxed">
+                          {item.a}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>
