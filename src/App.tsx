@@ -237,6 +237,7 @@ export default function App() {
 
       {/* Floating Emergency Call Button */}
       <a
+        id="btn-floating-call"
         href="tel:61991004308"
         aria-label="Ligar para socorro de baterias"
         className="fixed bottom-0 left-0 w-full z-[300] md:bottom-6 md:right-6 md:left-auto md:w-auto"
@@ -269,7 +270,7 @@ export default function App() {
             <img
               alt="Potencia das Baterias Logo"
               className="h-12 md:h-16 w-auto object-contain transition-transform group-hover:scale-105"
-              src="https://i.imgur.com/nrxPkmP.png"
+              src={isDarkMode ? "https://i.imgur.com/aLVAX0x.png" : "https://i.imgur.com/nrxPkmP.png"}
             />
           </div>
           <div className="hidden md:flex items-center gap-8 text-xs font-bold tracking-widest text-slate-600 dark:text-gray-300">
@@ -310,6 +311,7 @@ export default function App() {
               <Sun className="w-4 h-4" />
             </button>
             <a
+              id="btn-header-call"
               href="tel:61991004308"
               className="flex items-center gap-2 text-white bg-green-600 px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-green-600 transition-all duration-300 shadow-lg shadow-green-600/20 border border-transparent hover:border-green-600 hover-electric-green"
             >
@@ -346,7 +348,7 @@ export default function App() {
             <img
               alt="Potencia das Baterias Logo"
               className="h-12 w-auto object-contain"
-              src="https://i.imgur.com/nrxPkmP.png"
+              src={isDarkMode ? "https://i.imgur.com/aLVAX0x.png" : "https://i.imgur.com/nrxPkmP.png"}
             />
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -410,6 +412,7 @@ export default function App() {
               </p>
               <div className="flex flex-wrap gap-6 items-center animate-in fade-in slide-in-from-left duration-700 delay-300 relative z-30">
                 <a
+                  id="btn-hero-whatsapp"
                   href="https://wa.link/zgopqx"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -445,6 +448,7 @@ export default function App() {
               />
 
               <a 
+                id="btn-search-whatsapp"
                 href={getWhatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -517,6 +521,7 @@ export default function App() {
                     <MapPin className="w-3.5 h-3.5" /> Ver Mapa
                   </a>
                   <a
+                    id="btn-taguatinga-whatsapp"
                     href="https://wa.link/zgopqx"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -576,6 +581,7 @@ export default function App() {
                     <MapPin className="w-3.5 h-3.5" /> Ver Mapa
                   </a>
                   <a
+                    id="btn-taguatinga-norte-whatsapp"
                     href="https://wa.link/zgopqx"
                     target="_blank"
                     rel="noopener noreferrer"
