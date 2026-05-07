@@ -539,7 +539,7 @@ export default function App() {
                 <img
                   alt="Loja Potencia das Baterias Taguatinga Norte"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  src="https://lh3.googleusercontent.com/gps-cs-s/AHVAwepRhqVrnanScwV8RbV9q1_dWgqgIDHroG1cB9WVHfA_etC6NcysT-HjpRvoBIo3x1uP7FhB5GjUspKb9rzTI3jczGP720QPOOgE2SuI05UwQOuc1MRLzlP-EuXqu8d6ARtJWbXU=s680-w680-h510-rw"
+                  src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAH73VRTkYS30w2TRrY0kQnGu0cTVdqZ4KqGPHkdDJ8TM2DkYFY8Dbko1EQiyTZPF3xX7iB2QdJ_6EwIjHqvRn5FMrXeQ91whw8YHnogAwmS5YpP9nFHRo_hAvc1Qy4NlQ_ro_Cw=s680-w680-h510-rw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 dark:from-neutral-900 via-transparent to-transparent opacity-60"></div>
                 <div className="absolute top-6 left-6 bg-green-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
