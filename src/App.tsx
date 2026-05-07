@@ -155,6 +155,10 @@ export default function App() {
     { value: 'pesado', label: 'Caminhão / Ônibus' },
   ];
 
+  const currentUrl = typeof window !== 'undefined' ? window.location.origin : '';
+  const defaultWhatsappMessage = encodeURIComponent(`Olá, gostaria de conferir os preços.\n\nVim através do site: ${currentUrl}`);
+  const defaultWhatsappUrl = `https://wa.me/5561998250112?text=${defaultWhatsappMessage}`;
+
   const getWhatsappLink = () => {
     const phoneNumber = '5561998250112';
     let message = 'Olá, gostaria de conferir os preços';
@@ -183,9 +187,7 @@ export default function App() {
       message += ` em ${cityMap[selectedCity] || selectedCity}`;
     }
 
-    if (!selectedCity && !selectedCarModel) {
-        return 'https://wa.me/5561998250112';
-    }
+    message += `.\n\nVim através do site: ${currentUrl}`;
 
     return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
   };
@@ -413,7 +415,7 @@ export default function App() {
               <div className="flex flex-wrap gap-6 items-center animate-in fade-in slide-in-from-left duration-700 delay-300 relative z-30">
                 <a
                   id="btn-hero-whatsapp"
-                  href="https://wa.me/5561998250112"
+                  href={defaultWhatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-green-600 text-white px-10 py-5 rounded-lg font-black italic tracking-widest hover:bg-white hover:text-green-600 transition-all flex items-center gap-3 group shadow-lg shadow-green-600/20 hover-electric-green relative z-50"
@@ -522,7 +524,7 @@ export default function App() {
                   </a>
                   <a
                     id="btn-taguatinga-whatsapp"
-                    href="https://wa.me/5561998250112"
+                    href={defaultWhatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 py-4 bg-green-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-green-700 transition-all shadow-lg shadow-green-600/20 hover-electric-green"
@@ -582,7 +584,7 @@ export default function App() {
                   </a>
                   <a
                     id="btn-taguatinga-norte-whatsapp"
-                    href="https://wa.me/5561998250112"
+                    href={defaultWhatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 py-4 bg-green-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-green-700 transition-all shadow-lg shadow-green-600/20 hover-electric-green"
@@ -922,7 +924,7 @@ export default function App() {
               <ul className="space-y-4 text-sm text-neutral-400 font-bold uppercase tracking-widest">
                 <li>
                   <a
-                    href="https://wa.me/5561998250112"
+                    href={defaultWhatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition-colors"
