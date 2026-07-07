@@ -140,12 +140,44 @@ export default function App() {
   const [selectedCarModel, setSelectedCarModel] = useState('');
 
   const cityOptions = [
+    { value: 'taguatinga', label: 'Taguatinga' },
     { value: 'taguatinga-norte', label: 'Taguatinga Norte' },
+    { value: 'taguatinga-sul', label: 'Taguatinga Sul' },
+    { value: 'taguatinga-centro', label: 'Taguatinga Centro' },
     { value: 'ceilandia', label: 'Ceilândia' },
     { value: 'vicente-pires', label: 'Vicente Pires' },
     { value: 'aguas-claras', label: 'Águas Claras' },
-    { value: 'taguatinga-centro', label: 'Taguatinga Centro' },
     { value: 'samambaia', label: 'Samambaia' },
+    { value: 'sol-nascente', label: 'Sol Nascente' },
+    { value: 'arniqueira', label: 'Arniqueira' },
+    { value: 'guara', label: 'Guará' },
+    { value: 'sia', label: 'SIA' },
+    { value: 'cruzeiro', label: 'Cruzeiro' },
+    { value: 'sudoeste-octogonal', label: 'Sudoeste / Octogonal' },
+    { value: 'plano-piloto', label: 'Plano Piloto' },
+    { value: 'riacho-fundo', label: 'Riacho Fundo' },
+    { value: 'riacho-fundo-ii', label: 'Riacho Fundo II' },
+    { value: 'recanto-das-emas', label: 'Recanto das Emas' },
+    { value: 'nucleo-bandeirante', label: 'Núcleo Bandeirante' },
+    { value: 'candangolandia', label: 'Candangolândia' },
+    { value: 'park-way', label: 'Park Way' },
+    { value: 'lago-sul', label: 'Lago Sul' },
+    { value: 'lago-norte', label: 'Lago Norte' },
+    { value: 'agua-quente', label: 'Água Quente' },
+    { value: 'arapoanga', label: 'Arapoanga' },
+    { value: 'brazlandia', label: 'Brazlândia' },
+    { value: 'fercal', label: 'Fercal' },
+    { value: 'gama', label: 'Gama' },
+    { value: 'itapoa', label: 'Itapoã' },
+    { value: 'jardim-botanico', label: 'Jardim Botânico' },
+    { value: 'paranoa', label: 'Paranoá' },
+    { value: 'planaltina', label: 'Planaltina' },
+    { value: 'santa-maria', label: 'Santa Maria' },
+    { value: 'sao-sebastiao', label: 'São Sebastião' },
+    { value: 'scia-estrutural', label: 'SCIA / Estrutural' },
+    { value: 'sobradinho', label: 'Sobradinho' },
+    { value: 'sobradinho-ii', label: 'Sobradinho II' },
+    { value: 'varjao', label: 'Varjão' },
   ];
 
   const modelOptions = [
@@ -164,12 +196,44 @@ export default function App() {
     let message = 'Olá, gostaria de conferir os preços';
     
     const cityMap: Record<string, string> = {
-      'taguatinga-norte': 'Taguatinga Norte',
-      'ceilandia': 'Ceilândia',
-      'vicente-pires': 'Vicente Pires',
+      'agua-quente': 'Água Quente',
       'aguas-claras': 'Águas Claras',
+      'arapoanga': 'Arapoanga',
+      'arniqueira': 'Arniqueira',
+      'brazlandia': 'Brazlândia',
+      'candangolandia': 'Candangolândia',
+      'ceilandia': 'Ceilândia',
+      'cruzeiro': 'Cruzeiro',
+      'fercal': 'Fercal',
+      'gama': 'Gama',
+      'guara': 'Guará',
+      'itapoa': 'Itapoã',
+      'jardim-botanico': 'Jardim Botânico',
+      'lago-norte': 'Lago Norte',
+      'lago-sul': 'Lago Sul',
+      'nucleo-bandeirante': 'Núcleo Bandeirante',
+      'paranoa': 'Paranoá',
+      'park-way': 'Park Way',
+      'planaltina': 'Planaltina',
+      'plano-piloto': 'Plano Piloto',
+      'recanto-das-emas': 'Recanto das Emas',
+      'riacho-fundo': 'Riacho Fundo',
+      'riacho-fundo-ii': 'Riacho Fundo II',
+      'samambaia': 'Samambaia',
+      'santa-maria': 'Santa Maria',
+      'sao-sebastiao': 'São Sebastião',
+      'scia-estrutural': 'SCIA / Estrutural',
+      'sia': 'SIA',
+      'sobradinho': 'Sobradinho',
+      'sobradinho-ii': 'Sobradinho II',
+      'sol-nascente': 'Sol Nascente',
+      'sudoeste-octogonal': 'Sudoeste / Octogonal',
+      'taguatinga': 'Taguatinga',
+      'taguatinga-norte': 'Taguatinga Norte',
+      'taguatinga-sul': 'Taguatinga Sul',
       'taguatinga-centro': 'Taguatinga Centro',
-      'samambaia': 'Samambaia'
+      'varjao': 'Varjão',
+      'vicente-pires': 'Vicente Pires'
     };
 
     const modelMap: Record<string, string> = {
@@ -401,7 +465,7 @@ export default function App() {
                 <span className="w-8 h-[2px] bg-green-500"></span>Loja de Baterias Especializada
               </div>
               <h1 className="text-3xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-8 italic uppercase text-white relative animate-in fade-in slide-in-from-left duration-700 delay-100">
-                BATERIAS TAGUATINGA DF
+                BATERIAS 24 HORAS
                 <br />
                 <span className="text-green-500 inline-flex items-center gap-2">
                   TROCA NA HORA!{' '}
@@ -410,7 +474,7 @@ export default function App() {
               </h1>
               <p className="text-gray-200 text-lg max-w-md mb-10 leading-relaxed animate-in fade-in slide-in-from-left duration-700 delay-200">
                 Entrega e instalação gratuita de baterias Heliar em
-                até 40 minutos em Taguatinga e região.
+                até 40 minutos em Brasília e região.
               </p>
               <div className="flex flex-wrap gap-6 items-center animate-in fade-in slide-in-from-left duration-700 delay-300 relative z-30">
                 <a
@@ -541,7 +605,7 @@ export default function App() {
                 <img
                   alt="Loja Potencia das Baterias Taguatinga Norte"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAH73VRTkYS30w2TRrY0kQnGu0cTVdqZ4KqGPHkdDJ8TM2DkYFY8Dbko1EQiyTZPF3xX7iB2QdJ_6EwIjHqvRn5FMrXeQ91whw8YHnogAwmS5YpP9nFHRo_hAvc1Qy4NlQ_ro_Cw=s680-w680-h510-rw"
+                  src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAH8lJ6TcfJ7GLL2BOQahOBvb3_OFBVHj1t30m_fA8rWRNkBWx0AYKUOgYk9ZDOQ8dh-VO3e3S-B0OYPEg_oNVrZ1Aa1rQrBLYB9pWNlWYN1Ml5UtY-6B0OyDxzKNnPoMxM706eC=s680-w680-h510-rw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 dark:from-neutral-900 via-transparent to-transparent opacity-60"></div>
                 <div className="absolute top-6 left-6 bg-green-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
