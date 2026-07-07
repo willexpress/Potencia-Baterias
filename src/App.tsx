@@ -26,6 +26,8 @@ import {
   Shield,
   ThumbsUp,
   Check,
+  Timer,
+  Battery,
 } from 'lucide-react';
 
 interface Option {
@@ -527,8 +529,8 @@ export default function App() {
         </div>
       </section>
 
-      {/* Units Section */}
-      <section id="unidades" className="relative z-30 pt-64 pb-32 bg-white dark:bg-transparent">
+      {/* Units Section (Hidden by request) */}
+      <section id="unidades" className="hidden relative z-30 pt-64 pb-32 bg-white dark:bg-transparent">
         <FadeIn className="max-w-7xl mx-auto px-6">
           <div className="mb-20">
             <div className="flex items-center gap-2 text-green-500 font-bold text-xs tracking-[0.4em] mb-4 uppercase">
@@ -658,6 +660,90 @@ export default function App() {
                 </div>
               </div>
             </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* How it Works Section */}
+      <section id="como-funciona" className="relative z-30 py-32 bg-slate-50 dark:bg-neutral-900/50">
+        <FadeIn className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-black italic uppercase text-slate-900 dark:text-white mb-4">
+              COMO <span className="text-green-500">FUNCIONA?</span>
+            </h2>
+            <p className="text-slate-600 dark:text-gray-400 text-lg font-medium max-w-2xl mx-auto">
+              Em apenas 4 passos simples, nós resolvemos o seu problema com bateria, onde você estiver.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            {/* Step 1 */}
+            <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-3xl p-8 text-center relative group hover:border-green-500/50 transition-all">
+              <div className="w-16 h-16 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-black text-green-500 group-hover:scale-110 transition-transform">
+                1
+              </div>
+              <MessageSquare className="w-8 h-8 text-slate-900 dark:text-white mx-auto mb-4" />
+              <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2 uppercase italic tracking-wide">
+                Contato
+              </h3>
+              <p className="text-slate-600 dark:text-gray-400 text-sm font-medium">
+                Chame no WhatsApp ou ligue para nossa central de atendimento.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-3xl p-8 text-center relative group hover:border-green-500/50 transition-all">
+              <div className="w-16 h-16 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-black text-green-500 group-hover:scale-110 transition-transform">
+                2
+              </div>
+              <Battery className="w-8 h-8 text-slate-900 dark:text-white mx-auto mb-4" />
+              <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2 uppercase italic tracking-wide">
+                Identificação
+              </h3>
+              <p className="text-slate-600 dark:text-gray-400 text-sm font-medium">
+                Descobrimos o modelo exato da bateria ideal para o seu veículo.
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-3xl p-8 text-center relative group hover:border-green-500/50 transition-all">
+              <div className="w-16 h-16 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-black text-green-500 group-hover:scale-110 transition-transform">
+                3
+              </div>
+              <Timer className="w-8 h-8 text-slate-900 dark:text-white mx-auto mb-4" />
+              <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2 uppercase italic tracking-wide">
+                Entrega Rápida
+              </h3>
+              <p className="text-slate-600 dark:text-gray-400 text-sm font-medium">
+                Chegamos até você em Brasília e região em até 40 minutos.
+              </p>
+            </div>
+
+            {/* Step 4 */}
+            <div className="bg-white dark:bg-neutral-900 border border-slate-200 dark:border-white/10 rounded-3xl p-8 text-center relative group hover:border-green-500/50 transition-all">
+              <div className="w-16 h-16 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-black text-green-500 group-hover:scale-110 transition-transform">
+                4
+              </div>
+              <Zap className="w-8 h-8 text-slate-900 dark:text-white mx-auto mb-4" />
+              <h3 className="text-xl font-black text-slate-900 dark:text-white mb-2 uppercase italic tracking-wide">
+                Instalação
+              </h3>
+              <p className="text-slate-600 dark:text-gray-400 text-sm font-medium">
+                Realizamos a instalação e o teste do seu alternador gratuitamente.
+              </p>
+            </div>
+          </div>
+          
+          <div className="mt-16 text-center">
+            <a
+              id="btn-how-it-works"
+              href={defaultWhatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 bg-green-600 text-white px-10 py-5 rounded-lg font-black italic tracking-widest hover:bg-green-700 transition-all shadow-lg shadow-green-600/20 hover-electric-green"
+            >
+              <MessageSquare className="w-5 h-5" /> SOLICITAR AGORA
+            </a>
           </div>
         </FadeIn>
       </section>
